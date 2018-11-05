@@ -1,19 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-//ReactDOM.render(<App />, document.getElementById('root'));
-
-import { createStore } from "redux";
-
-const initialState = {
-  result: 1,
-  lastValues: [],
-  username: "Ken"
-};
-const reducer = (state = initialState, action) => {
+const mathReducer = (
+  state = {
+    result: 1,
+    lastValues: [],
+    username: "Ken"
+  },
+  action
+) => {
   switch (action.type) {
     case "ADD":
       state = {
@@ -35,7 +34,36 @@ const reducer = (state = initialState, action) => {
   return state;
 };
 
-const store = createStore(reducer);
+const userReducer = (
+  state = {
+    name: "Max",
+    age: 27
+  },
+  action
+) => {
+  switch (action.type) {
+    case "SET_NAME":
+      state = {
+        ...state,
+        name: action.payload
+      };
+      //state.lastValue.push(action.payload); // this is multable way
+      break;
+    case "SET_AGE":
+      state = {
+        ...state,
+        age: action.payload
+      };
+      //state.lastValue.push(action.payload);
+      break;
+  }
+  return state;
+};
+
+const store = createStore(
+  combineReducers({ mathReducer, userReducer }),
+  composeWithDevTools()
+);
 
 store.subscribe(() => {
   console.log("store updated ", store.getState());
@@ -54,5 +82,10 @@ store.dispatch({
 store.dispatch({
   type: "SUBSTRACT",
   payload: 15
+});
+
+store.dispatch({
+  type: "SET_AGE",
+  payload: 30
 });
 serviceWorker.unregister();
