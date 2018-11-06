@@ -2,8 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import App from "./components/App";
+import { Provider } from "react-redux";
 
 const mathReducer = (
   state = {
@@ -86,6 +88,14 @@ store.dispatch({
 
 store.dispatch({
   type: "SET_AGE",
-  payload: 30
+  payload: 25
 });
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  window.document.getElementById("root")
+);
+
 serviceWorker.unregister();
