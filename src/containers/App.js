@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactDom from "react-dom";
 import User from "../components/User";
 import Main from "../components/Main";
 import { connect } from "react-redux";
@@ -36,4 +35,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App);
-//export default App;

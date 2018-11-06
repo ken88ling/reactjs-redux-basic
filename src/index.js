@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import App from "./container/App";
+import App from "./containers/App";
 import { Provider } from "react-redux";
 
 const mathReducer = (
